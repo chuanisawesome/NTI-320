@@ -6,6 +6,11 @@
 #   On the client   #
 ######################
 
+#####INSTALL APACHE#####
+yum -y install httpd
+systemctl enable httpd
+systemctl start httpd
+
 yum -y install nagios-nrpe-server nagios-plugins
 
 #####NRPE INSTALLATION#####
