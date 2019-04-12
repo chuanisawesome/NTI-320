@@ -30,7 +30,7 @@ yum -y install nagios-plugins-all
 yum -y install nagios-plugins-nrpe
 
 ##### CREATE PASSWORD #####
-htpasswd -c /etc/nagios/passwd nagiosadmin
+htpasswd -b -c /etc/nagios/passwd nagiosadmin nagiosadmin
 
 ##### ENABLE ACCESS FOR LOGS #####
 chmod 666 /var/log/nagios/nagios.log
