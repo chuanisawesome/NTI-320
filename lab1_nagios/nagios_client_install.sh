@@ -26,11 +26,11 @@ systemctl start nrpe
 #uncomment lines 323-328 (#####MISC SYSTEM METRICS#####)
 sed -i '323,328 s/^#//' /etc/nagios/nrpe.cfg
 
-sed -e 323's/$/ -w 5 -c 10 &/' /etc/nagios/nrpe.cfg
-sed -e 324's/$/ -w 15,10,5 -c 30,25,20 &/' /etc/nagios/nrpe.cfg
-sed -e 325,326's/$/ -w 20% -c 10% &/' /etc/nagios/nrpe.cfg
-sed -e 327's/$/ -w 70,40,30 -c 90,50,40 &/' /etc/nagios/nrpe.cfg
-sed -e 328's/$/ -w 80 -c 90 &/' /etc/nagios/nrpe.cfg
+sed -i 323's/$/ -w 5 -c 10 &/' /etc/nagios/nrpe.cfg
+sed -i 324's/$/ -w 15,10,5 -c 30,25,20 &/' /etc/nagios/nrpe.cfg
+sed -i 325,326's/$/ -w 20% -c 10% &/' /etc/nagios/nrpe.cfg
+sed -i 327's/$/ -w 70,40,30 -c 90,50,40 &/' /etc/nagios/nrpe.cfg
+sed -i 328's/$/ -w 80 -c 90 &/' /etc/nagios/nrpe.cfg
 
 
 #####MISC SYSTEM METRICS#####
