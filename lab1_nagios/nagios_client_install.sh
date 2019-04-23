@@ -26,6 +26,7 @@ systemctl start nrpe
 #uncomment lines 323-328 (#####MISC SYSTEM METRICS#####)
 sed -i '323,328 s/^#//' /etc/nagios/nrpe.cfg
 
+#change the file during the process, use -i option Append a suffix at a specific line
 sed -i 323's/$/ -w 5 -c 10 &/' /etc/nagios/nrpe.cfg
 sed -i 324's/$/ -w 15,10,5 -c 30,25,20 &/' /etc/nagios/nrpe.cfg
 sed -i 325,326's/$/ -w 20% -c 10% &/' /etc/nagios/nrpe.cfg
