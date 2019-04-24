@@ -14,45 +14,34 @@ systemctl start httpd
 #####INSTALL PLUG-INS#####
 yum -y install nagios-nrpe-server nagios-plugins nagios-plugins-load nagios-plugins-ping nagios-plugins-disk nagios-plugins-http nagios-plugins-procs nagios-plugins-users wget
 
-#####Install custom mem monitor from nic-instructor repo#####
-wget -O /usr/lib64/nagios/plugins/check_mem.sh https://raw.githubusercontent.com/nic-instruction/NTI-320/master/nagios/check_mem.sh
-chmod +x /usr/lib64/nagios/plugins/check_mem.sh
-
 #####NRPE INSTALLATION#####
 yum -y install nrpe
 systemctl enable nrpe
 systemctl start nrpe
 
-#uncomment lines 323-328 (#####MISC SYSTEM METRICS#####)
-sed -i '323,328 s/^#//' /etc/nagios/nrpe.cfg
+#####Install custom mem monitor#####
+wget -O /usr/lib64/nagios/plugins/check_mem.sh https://raw.githubusercontent.com/chuanisawesome/NTI-320/master/resources/check_mem.sh
+chmod +x /usr/lib64/nagios/plugins/check_mem.sh
+
+#uncomment lines 323-327 (#####MISC SYSTEM METRICS#####)
+sed -i '323,327 s/^#//' /etc/nagios/nrpe.cfg
 
 #To remove last n characters of lines specified
-sed -r -i 323,328's/.{6}$//' /etc/nagios/nrpe.cfg
+sed -r -i 323,327's/.{6}$//' /etc/nagios/nrpe.cfg
 
-#change the file during the process, use -i option Append a suffix at a specific line
+#change the file during the process=use -i option (I am Appending a suffix at a specific line)
 sed -i 323's/$/ -w 5 -c 10 &/' /etc/nagios/nrpe.cfg
 sed -i 324's/$/ -w 15,10,5 -c 30,25,20 &/' /etc/nagios/nrpe.cfg
 sed -i 325,326's/$/ -w 20% -c 10% &/' /etc/nagios/nrpe.cfg
 sed -i 327's/$/ -w 70,40,30 -c 90,50,40 &/' /etc/nagios/nrpe.cfg
 
-sed -i "s,command[check_mem]=/usr/lib64/nagios/plugins/custom_check_mem -n,command[check_mem]=/usr/lib64/nagios/plugins/check_mem.sh -w 80 -c 90,g" /etc/nagios/nrpe.cfg
+echo "command[check_mem]=/usr/lib/nagios/plugins/check_mem.sh -w 80 -c 90" >> /etc/nagios/nrpe.cfg
 
-
-#####MISC SYSTEM METRICS#####
-#command[check_users]=/usr/lib64/nagios/plugins/check_users $ARG1$
-#command[check_load]=/usr/lib64/nagios/plugins/check_load $ARG1$
-#command[check_disk]=/usr/lib64/nagios/plugins/check_disk $ARG1$
-#command[check_swap]=/usr/lib64/nagios/plugins/check_swap $ARG1$
-#command[check_cpu_stats]=/usr/lib64/nagios/plugins/check_cpu_stats.sh $ARG1$
-#command[check_mem]=/usr/lib64/nagios/plugins/custom_check_mem -n $ARG1$
-
-#####MISC SYSTEM METRICS#####
-command[check_users]=/usr/lib64/nagios/plugins/check_users -w 5 -c 10
-command[check_load]=/usr/lib64/nagios/plugins/check_load -w 15,10,5 -c 30,25,20
-command[check_disk]=/usr/lib64/nagios/plugins/check_disk -w 20% -c 10%
-command[check_swap]=/usr/lib64/nagios/plugins/check_swap -w 20% -c 10%
-command[check_cpu_stats]=/usr/lib64/nagios/plugins/check_cpu_stats.sh -w 70,40,30 -c 90,50,40
-command[check_mem]=/usr/lib64/nagios/plugins/check_mem.sh -w 80 -c 90
+#escape square brackets
+string='command\[check_hda1\]=/usr/lib/nagios/plugins/check_disk -w 20% -c 10% -p /dev/hda1' 
+replacement_string='command\[check_disk\]=/usr/lib/nagios/plugins/check_disk -w 20% -c 10% -p /dev/sda1'
+# use semicolons as delimiter
+sed -i.bak "s;$string;$replacement_string;g" /etc/nagios/nrpe.cfg
 
 #####SERVER NAME#####
 nagios_server="nagios-a"
