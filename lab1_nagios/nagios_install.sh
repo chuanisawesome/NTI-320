@@ -88,14 +88,14 @@ define service{
 
 define service{
         use                             generic-service         ; Name of service template to
-        host_name                       '$client_name'
+        host_name                       $client_name
         service_description             totalprocs
         check_command                   check_nrpe!check_total_procs
 }
 
 define service{
         use                             generic-service         ; Name of service template to
-        host_name                       '$client_name'
+        host_name                       $client_name
         service_description             memory
         check_command                   check_nrpe!check_mem
 }">> /etc/nagios/servers/$client_name.cfg
