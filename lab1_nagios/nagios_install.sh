@@ -52,7 +52,6 @@ mkdir servers
 #./generate_config.sh host ip
 
 ###### MAKE SURE THE CLIENT IS ALREADY CREATED BEFORE RUNNING THIS #####
-
 client_name="web-a"
 client_ip=$(gcloud compute instances list | grep $client_name | awk '{ print $4 }' | tail -1)
 
