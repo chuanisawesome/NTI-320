@@ -54,4 +54,4 @@ define service{
         check_command                   check_nrpe!check_mem
 }
 
-">> /etc/nagios/servers/"$host".cfg
+"> "$host".cfg
