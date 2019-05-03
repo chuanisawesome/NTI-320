@@ -52,7 +52,7 @@ mkdir servers
 #./generate_config.sh host ip
 
 usermod -a -G nagios cchang30
-chmod 775 /etc/nagios/servers
+chmod 777 /etc/nagios/servers
 
 #uncomment line 51 cfg_dir=/etc/nagios/servers
 sed -i '51 s/^#//' nagios.cfg 
