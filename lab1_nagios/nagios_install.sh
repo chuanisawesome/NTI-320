@@ -51,6 +51,9 @@ mkdir servers
 #chmod +x generate_config.sh
 #./generate_config.sh host ip
 
+usermod -a -G nagios cchang30
+chmod 775 /etc/nagios/servers
+
 ###### MAKE SURE THE CLIENT IS ALREADY CREATED BEFORE RUNNING THIS #####
 client_name="web-a"
 client_ip=$(gcloud compute instances list | grep $client_name | awk '{ print $4 }' | tail -1)
