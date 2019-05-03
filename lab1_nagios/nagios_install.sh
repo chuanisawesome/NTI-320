@@ -54,54 +54,6 @@ mkdir servers
 usermod -a -G nagios cchang30
 chmod 775 /etc/nagios/servers
 
-###### MAKE SURE THE CLIENT IS ALREADY CREATED BEFORE RUNNING THIS #####
-client_name="web-a"
-client_ip=$(gcloud compute instances list | grep $client_name | awk '{ print $4 }' | tail -1)
-
-echo "
-# Host Definition
-define host {
-    use         linux-server        ; Inherit default values from a template
-    host_name   $client_name        ; The name we're giving to this host
-    alias       $client_name server ; A longer name associated with the host
-    address     $client_ip          ; IP address of the host
-}
-# Service Definition
-define service{
-        use                             generic-service         ; Name of service template to
-        host_name                       $client_name
-        service_description             load
-        check_command                   check_nrpe!check_load
-}
-
-define service{
-        use                             generic-service         ; Name of service template to
-        host_name                       $client_name
-        service_description             users
-        check_command                   check_nrpe!check_users
-}
-
-define service{
-        use                             generic-service         ; Name of service template to
-        host_name                       $client_name
-        service_description             disk
-        check_command                   check_nrpe!check_disk
-}
-
-define service{
-        use                             generic-service         ; Name of service template to
-        host_name                       $client_name
-        service_description             totalprocs
-        check_command                   check_nrpe!check_total_procs
-}
-
-define service{
-        use                             generic-service         ; Name of service template to
-        host_name                       $client_name
-        service_description             memory
-        check_command                   check_nrpe!check_mem
-}">> /etc/nagios/servers/$client_name.cfg
-
 #uncomment line 51 cfg_dir=/etc/nagios/servers
 sed -i '51 s/^#//' nagios.cfg 
 
