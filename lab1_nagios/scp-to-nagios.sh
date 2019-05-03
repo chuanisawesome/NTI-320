@@ -2,7 +2,7 @@
 
 bash generate_config.sh $1 $2
 
-gcloud compute scp $1.cfg cchang30@nagios-a:/etc/nagios/servers
+gcloud compute scp --zone us-west1-b $1.cfg cchang30@nagios-a:/etc/nagios/servers
 
 # Note: I had to add user nicolebade to group nagios using usermod -a -G nagios nicolebade
 # I also had to chmod 775 /etc/nagios/servers
