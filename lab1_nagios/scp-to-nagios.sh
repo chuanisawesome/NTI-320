@@ -1,4 +1,5 @@
 #!/bin/bash
+
 bash generate_config.sh $1 $2
 
 gcloud compute scp $1.cfg cchang30@nagios-a:/etc/nagios/servers
