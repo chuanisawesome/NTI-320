@@ -8,4 +8,4 @@ for servername in $(gcloud compute instances list | awk '{print $1}' | sed "1 d"
     bash scp-to-nagios.sh $servername $serverip
 done
 
-gcloud compute ssh cchang30@nagios-a --command='sudo systemctl restart nagios'
+gcloud compute ssh --zone us-west1-b cchang30@nagios-a --command='sudo systemctl restart nagios'
