@@ -1,0 +1,5 @@
+ldap_ip=$(gcloud compute instances list | grep $ldap_server | awk '{ print $4 }' | tail -1)
+nfs_ip=$(gcloud compute instances list | grep $nfs_server | awk '{ print $4 }' | tail -1)
+lnc_ip=$(gcloud compute instances list | grep $ldap_nfs_client | awk '{ print $4 }' | tail -1)
+post_ip=$(gcloud compute instances list | grep $postgres_server | awk '{ print $4 }' | tail -1)
+django_ip=$(gcloud compute instances list | grep $django_server | awk '{ print $4 }' | tail -1)
