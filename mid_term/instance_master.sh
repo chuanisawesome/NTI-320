@@ -151,7 +151,7 @@ gcloud compute ssh --zone us-west1-b cchang30@$servername --command='sudo yum -y
 
 done
 
-sleep 5
+sleep 2
 
 for servername in $(gcloud compute instances list | awk '{print $1}' | sed "1 d" | grep -v $nagios_server);  do 
     echo $servername;
