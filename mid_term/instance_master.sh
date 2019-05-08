@@ -113,7 +113,7 @@ django=/NTI-310/mid_term/django-startup-script.sh
 # to get postgres internal ip
 sed -i "s/\$server_name/$postgres_server/g" $django
 
-sleep 5
+sleep 2
 
 #--------------spin up Django Server instance-------------------#
 django_server="testingdjango"
@@ -151,7 +151,7 @@ gcloud compute ssh --zone us-west1-b cchang30@$servername --command='sudo yum -y
 
 done
 
-sleep 10
+sleep 5
 
 for servername in $(gcloud compute instances list | awk '{print $1}' | sed "1 d" | grep -v $nagios_server);  do 
     echo $servername;
