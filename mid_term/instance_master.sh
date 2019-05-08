@@ -34,7 +34,7 @@ gcloud compute instances create $cacti_server \
     --image-family centos-7 \
     --image-project centos-cloud \
     --tags "http-server","https-server" \
-    --metadata-from-file startup-script="/NTI-310/mid_term/cacti-startup-script.sh"
+    --metadata-from-file startup-script="/NTI-320/mid_term/cacti-startup-script.sh"
 
 
 nagios_ip=$(gcloud compute instances list | grep $cacti_server | awk '{ print $4 }' | tail -1)
@@ -50,7 +50,7 @@ gcloud compute instances create $ldap_server \
     --image-family centos-7 \
     --image-project centos-cloud \
     --tags "http-server","https-server" \
-    --metadata-from-file startup-script="/NTI-310/mid_term/ldap-startup-script.sh"
+    --metadata-from-file startup-script="/NTI-320/mid_term/ldap-startup-script.sh"
 
 
 ldap_ip=$(gcloud compute instances list | grep $ldap_server | awk '{ print $4 }' | tail -1)
@@ -67,7 +67,7 @@ gcloud compute instances create $nfs_server \
     --image-family centos-7 \
     --image-project centos-cloud \
     --tags "http-server","https-server" \
-    --metadata-from-file startup-script="/NTI-310/mid_term/nfs-startup-script.sh"
+    --metadata-from-file startup-script="/NTI-320/mid_term/nfs-startup-script.sh"
 
 nfs_ip=$(gcloud compute instances list | grep $nfs_server | awk '{ print $4 }' | tail -1)
 echo "This is your internal nfs_ip $nfs_ip" >> instances_ip.txt
@@ -88,7 +88,7 @@ gcloud compute instances create $ldap_nfs_client \
     --scopes cloud-platform \
     --image-family ubuntu-1604-lts \
     --image-project ubuntu-os-cloud \
-    --metadata-from-file startup-script="/NTI-310/mid_term/ldap-nfs-client-startup-script.sh"
+    --metadata-from-file startup-script="/NTI-320/mid_term/ldap-nfs-client-startup-script.sh"
 
 lnc_ip=$(gcloud compute instances list | grep $ldap_nfs_client | awk '{ print $4 }' | tail -1)
 echo "This is your internal clients_ip $lnc_ip" >> instances_ip.txt
@@ -104,7 +104,7 @@ gcloud compute instances create $postgres_server \
     --image-family centos-7 \
     --image-project centos-cloud \
     --tags "http-server","https-server" \
-    --metadata-from-file startup-script="/NTI-310/mid_term/postgres-startup-script.sh"
+    --metadata-from-file startup-script="/NTI-320/mid_term/postgres-startup-script.sh"
 
 post_ip=$(gcloud compute instances list | grep $postgres_server | awk '{ print $4 }' | tail -1)
 echo "This is your internal postgres_ip $post_ip" >> instances_ip.txt
@@ -124,15 +124,15 @@ gcloud compute instances create $django_server \
     --scopes cloud-platform \
     --image-family centos-7 \
     --image-project centos-cloud \
-    --tags "http-server","https-server","seahub-web-interface" \
-    --metadata-from-file startup-script="/NTI-310/mid_term/django-startup-script.sh"
+    --tags "http-server","https-server" \
+    --metadata-from-file startup-script="/NTI-320/mid_term/django-startup-script.sh"
 
     
 django_ip=$(gcloud compute instances list | grep $django_server | awk '{ print $4 }' | tail -1)
 echo "This is your internal django_ip $django_ip" >> instances_ip.txt
 
 
-dir=/NTI-310/mid_term/ip.sh
+dir=/NTI-320/mid_term/ip.sh
 if [ -f $dir ]
 then 
    sed -i "s/\$ldap_server/$ldap_server/g" $dir
