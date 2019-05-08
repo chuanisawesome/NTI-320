@@ -51,6 +51,5 @@ echo "from django.contrib.auth.models import User; User.objects.filter(email='ro
 
 # exit to normal user (username)
 # start django test server
-sudo -u cchang30 -E sh -c "\\
-source /opt/myproject/myprojectenv/bin/activate && \\
-/opt/myproject/manage.py runserver 0.0.0.0:8000&"
+#sudo -u cchang30 -E sh -c "\\
+source /opt/myproject/myprojectenv/bin/activate && python /opt/myproject/manage.py runserver 0.0.0.0:8000&
