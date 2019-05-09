@@ -74,7 +74,7 @@ nfs_ip=$(gcloud compute instances list | grep $nfs_server | awk '{ print $4 }' |
 echo "This is your internal nfs_ip $nfs_ip" >> instances_ip.txt
 
 ##sed line that changes ip in the client file
-lnclient=/NTI-310/mid_term/ldap-nfs-client-startup-script.sh
+lnclient=/NTI-320/mid_term/ldap-nfs-client-startup-script.sh
 sed -i "s/\$nfs_ip/$nfs_ip/g" $lnclient
 sed -i "s/\$ldap_ip/$ldap_ip/g" $lnclient
 
