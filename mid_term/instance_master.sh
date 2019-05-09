@@ -8,6 +8,7 @@ git clone https://github.com/chuanisawesome/NTI-320.git
 wget https://raw.githubusercontent.com/chuanisawesome/NTI-320/master/lab1_nagios/generate_config.sh
 wget https://raw.githubusercontent.com/chuanisawesome/NTI-320/master/lab1_nagios/scp-to-nagios.sh
 
+
 #--------------spin up Nagios Server instance--------------------#
 nagios_server="testingnagios"
 
@@ -134,7 +135,7 @@ echo "This is your internal django_ip $django_ip" >> instances_ip.txt
 
 for servername in $(gcloud compute instances list | awk '{print $1}' | sed "1 d" | grep -v $nagios_server); do 
 
-gcloud compute ssh --zone us-west1-b cchang30@$servername --command='sudo yum -y install wget && sudo wget https://raw.githubusercontent.com/chuanisawesome/NTI-320/master/lab1_nagios/nagios_client_install.sh && sudo bash nagios_client_install.sh';
+gcloud compute ssh --zone us-west1-b cchang30@$servername --command='sudo yum -y install wget && sudo wget https://raw.githubusercontent.com/chuanisawesome/NTI-320/master/lab1_nagios/nagios_client_install.sh && chmod 777 nagios_client_install.sh && sudo ./nagios_client_install.sh';
 
 done
 
