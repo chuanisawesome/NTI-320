@@ -41,6 +41,35 @@ gcloud compute instances create $cacti_server \
 nagios_ip=$(gcloud compute instances list | grep $cacti_server | awk '{ print $4 }' | tail -1)
 echo "This is your internal cacti_ip $cacti_ip" >> instances_ip.txt
 
+#---------------spin up Rsyslog Server instance------------------#
+rsyslog_server="testingrsyslog"
+
+gcloud compute instances create $rsyslog_server \
+    --zone us-west1-b \
+    --machine-type f1-micro \
+    --scopes cloud-platform \
+    --image-family centos-7 \
+    --image-project centos-cloud \
+    --metadata-from-file startup-script="/NTI-320/mid_term/rsyslog-startup-script.sh"
+
+
+rsyslog_ip=$(gcloud compute instances list | grep $rsyslog_server | awk '{ print $4 }' | tail -1)
+echo "This is your internal rsyslog_ip $rsyslog_ip" >> instances_ip.txt
+
+ldapserver=/NTI-320/mid_term/ldap-startup-script.sh
+sed -i "s/\$rsys_ip/$rsyslog_ip/g" $ldapserver
+
+nfsserver=/NTI-320/mid_term/nfs-startup-script.sh
+sed -i "s/\$rsys_ip/$rsyslog_ip/g" $nfsserver
+
+postgresserver=/NTI-320/mid_term/postgres-startup-script.sh
+sed -i "s/\$rsys_ip/$rsyslog_ip/g" $postgresserver
+
+djangoserver=/NTI-320/mid_term/django-startup-script.sh
+sed -i "s/\$rsys_ip/$rsyslog_ip/g" $djangoserver
+
+sleep 2
+
 #---------------spin up LDAP Server instance---------------------#
 ldap_server="testingldap"
 
