@@ -125,7 +125,7 @@ gcloud compute instances create $django_server \
     --scopes cloud-platform \
     --image-family centos-7 \
     --image-project centos-cloud \
-    --tags "http-server" \
+    --tags "http-server", "port-8000" \
     --metadata-from-file startup-script="/NTI-320/mid_term/django-startup-script.sh"
 
     
@@ -133,11 +133,11 @@ django_ip=$(gcloud compute instances list | grep $django_server | awk '{ print $
 echo "This is your internal django_ip $django_ip" >> instances_ip.txt
 
 
-for servername in $(gcloud compute instances list | awk '{print $1}' | sed "1 d" | grep -v $nagios_server); do 
+#for servername in $(gcloud compute instances list | awk '{print $1}' | sed "1 d" | grep -v $nagios_server); do 
 
-gcloud compute ssh --zone us-west1-b cchang30@$servername --command='sudo yum -y install wget && sudo wget https://raw.githubusercontent.com/chuanisawesome/NTI-320/master/lab1_nagios/nagios_client_install.sh && chmod 777 nagios_client_install.sh && sudo ./nagios_client_install.sh';
+#gcloud compute ssh --zone us-west1-b cchang30@$servername --command='sudo yum -y install wget && sudo wget https://raw.githubusercontent.com/chuanisawesome/NTI-320/master/lab1_nagios/nagios_client_install.sh && chmod 777 nagios_client_install.sh && sudo ./nagios_client_install.sh';
 
-done
+#done
 
 sleep 2
 
