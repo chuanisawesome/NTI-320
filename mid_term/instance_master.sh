@@ -132,18 +132,6 @@ django_ip=$(gcloud compute instances list | grep $django_server | awk '{ print $
 echo "This is your internal django_ip $django_ip" >> instances_ip.txt
 
 
-dir=/NTI-320/mid_term/ip.sh
-if [ -f $dir ]
-then 
-   sed -i "s/\$ldap_server/$ldap_server/g" $dir
-   sed -i "s/\$nfs_server/$nfs_server/g" $dir
-   sed -i "s/\$ldap_nfs_client/$ldap_nfs_client/g" $dir
-   sed -i "s/\$postgres_server/$postgres_server/g" $dir
-   sed -i "s/\$django_server/$django_server/g" $dir
-fi
-
-mv $dir ./ip.sh | /bin/bash
-
 for servername in $(gcloud compute instances list | awk '{print $1}' | sed "1 d" | grep -v $nagios_server); do 
 
 gcloud compute ssh --zone us-west1-b cchang30@$servername --command='sudo yum -y install wget && sudo wget https://raw.githubusercontent.com/chuanisawesome/NTI-320/master/lab1_nagios/nagios_client_install.sh && sudo bash nagios_client_install.sh';
