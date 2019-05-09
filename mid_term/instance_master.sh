@@ -109,7 +109,7 @@ gcloud compute instances create $postgres_server \
 post_ip=$(gcloud compute instances list | grep $postgres_server | awk '{ print $4 }' | tail -1)
 echo "This is your internal postgres_ip $post_ip" >> instances_ip.txt
 
-django=/NTI-310/mid_term/django-startup-script.sh
+django=/NTI-320/mid_term/django-startup-script.sh
 # to get postgres internal ip
 sed -i "s/\$server_name/$postgres_server/g" $django
 
