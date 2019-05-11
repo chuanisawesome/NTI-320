@@ -20,10 +20,7 @@ gcloud compute instances create $nagios_server \
     --image-project centos-cloud \
     --tags "http-server","https-server" \
     --metadata-from-file startup-script="/NTI-320/mid_term/nagios-startup-script.sh"
-
-
-nagios_ip=$(gcloud compute instances list | grep $nagios_server | awk '{ print $4 }' | tail -1)
-echo "This is your internal nagios_ip $nagios_ip" >> instances_ip.txt
+    
 
 #--------------spin up Cacti Server instance--------------------#
 cacti_server="testingcacti"
@@ -38,9 +35,6 @@ gcloud compute instances create $cacti_server \
     --metadata-from-file startup-script="/NTI-320/mid_term/cacti-startup-script.sh"
 
 
-nagios_ip=$(gcloud compute instances list | grep $cacti_server | awk '{ print $4 }' | tail -1)
-echo "This is your internal cacti_ip $cacti_ip" >> instances_ip.txt
-
 #---------------spin up Rsyslog Server instance------------------#
 rsyslog_server="testingrsyslog"
 
@@ -52,9 +46,6 @@ gcloud compute instances create $rsyslog_server \
     --image-project centos-cloud \
     --metadata-from-file startup-script="/NTI-320/mid_term/rsyslog-startup-script.sh"
 
-
-rsyslog_ip=$(gcloud compute instances list | grep $rsyslog_server | awk '{ print $4 }' | tail -1)
-echo "This is your internal rsyslog_ip $rsyslog_ip" >> instances_ip.txt
 
 ldapserver=/NTI-320/mid_term/ldap-startup-script.sh
 sed -i "s/\$rsys_ip/$rsyslog_ip/g" $ldapserver
@@ -83,10 +74,6 @@ gcloud compute instances create $ldap_server \
     --metadata-from-file startup-script="/NTI-320/mid_term/ldap-startup-script.sh"
 
 
-ldap_ip=$(gcloud compute instances list | grep $ldap_server | awk '{ print $4 }' | tail -1)
-echo "This is your internal ldap_ip $ldap_ip" >> instances_ip.txt
-
-
 #---------------spin up NFS Server instance---------------------#
 nfs_server="testingnfs"
 
@@ -98,9 +85,6 @@ gcloud compute instances create $nfs_server \
     --image-project centos-cloud \
     --tags "http-server","https-server" \
     --metadata-from-file startup-script="/NTI-320/mid_term/nfs-startup-script.sh"
-
-nfs_ip=$(gcloud compute instances list | grep $nfs_server | awk '{ print $4 }' | tail -1)
-echo "This is your internal nfs_ip $nfs_ip" >> instances_ip.txt
 
 ##sed line that changes ip in the client file
 lnclient=/NTI-320/mid_term/ldap-nfs-client-startup-script.sh
@@ -120,9 +104,6 @@ gcloud compute instances create $ldap_nfs_client \
     --image-project ubuntu-os-cloud \
     --metadata-from-file startup-script="/NTI-320/mid_term/ldap-nfs-client-startup-script.sh"
 
-lnc_ip=$(gcloud compute instances list | grep $ldap_nfs_client | awk '{ print $4 }' | tail -1)
-echo "This is your internal clients_ip $lnc_ip" >> instances_ip.txt
-
 
 #--------------spin up Posgres Server instance------------------#
 postgres_server="testingpost"
@@ -136,8 +117,6 @@ gcloud compute instances create $postgres_server \
     --tags "http-server","https-server" \
     --metadata-from-file startup-script="/NTI-320/mid_term/postgres-startup-script.sh"
 
-post_ip=$(gcloud compute instances list | grep $postgres_server | awk '{ print $4 }' | tail -1)
-echo "This is your internal postgres_ip $post_ip" >> instances_ip.txt
 
 django=/NTI-320/mid_term/django-startup-script.sh
 # to get postgres internal ip
@@ -157,11 +136,6 @@ gcloud compute instances create $django_server \
     --tags "http-server", "port-8000" \
     --metadata-from-file startup-script="/NTI-320/mid_term/django-startup-script.sh"
 
-    
-django_ip=$(gcloud compute instances list | grep $django_server | awk '{ print $4 }' | tail -1)
-echo "This is your internal django_ip $django_ip" >> instances_ip.txt
-
-
 #for servername in $(gcloud compute instances list | awk '{print $1}' | sed "1 d" | grep -v $nagios_server); do 
 
 #gcloud compute ssh --zone us-west1-b cchang30@$servername --command='sudo yum -y install wget && sudo wget https://raw.githubusercontent.com/chuanisawesome/NTI-320/master/lab1_nagios/nagios_client_install.sh && chmod 777 nagios_client_install.sh && sudo ./nagios_client_install.sh';
@@ -178,4 +152,4 @@ echo "This is your internal django_ip $django_ip" >> instances_ip.txt
 #    ./scp-to-nagios.sh $servername $serverip
 #done
 
-gcloud compute ssh --zone us-west1-b cchang30@$nagios_server --command='sudo systemctl restart nagios'
+#gcloud compute ssh --zone us-west1-b cchang30@$nagios_server --command='sudo systemctl restart nagios'
