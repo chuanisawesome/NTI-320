@@ -8,7 +8,6 @@ in_ip=$(getent hosts  $server_name$(echo .$(hostname -f |  cut -d "." -f2-)) | a
 #----------------install packages-------------
 
 yum install -y epel-release
-yum update -y
 yum install python-pip -y
 pip install virtualenv
 pip install --upgrade pip
