@@ -20,8 +20,7 @@ cd /opt/myproject
 
 virtualenv myprojectenv
 source myprojectenv/bin/activate
-pip install django
-yum install postgresql-devel -y
+pip install django psycopg2
 django-admin.py startproject myproject .
 
 chown -R cchang30 . /opt/myproject
