@@ -107,7 +107,7 @@ lnclient=/NTI-320/mid_term/ldap-nfs-client-startup-script.sh
 sed -i "s/\$nfs_ip/$nfs_ip/g" $lnclient
 sed -i "s/\$ldap_ip/$ldap_ip/g" $lnclient
 
-sleep 5
+sleep 2
 
 #--------------spin up LDAP & NFS Client instance---------------#
 ldap_nfs_client="testinglnc"
@@ -158,15 +158,3 @@ for servername in $(gcloud compute instances list | awk '{print $1}' | sed "1 d"
 gcloud compute ssh cchang30@$servername --zone us-west1-b --strict-host-key-checking='no' --command='sudo yum -y install wget && sudo wget https://raw.githubusercontent.com/chuanisawesome/NTI-320/master/lab1_nagios/nagios_client_install.sh && sudo bash nagios_client_install.sh';
 
 done
-
-#sleep 2
-
-#for servername in $(gcloud compute instances list | awk '{print $1}' | sed "1 d" | grep -v $nagios_server);  do 
-#    echo $servername;
-#    serverip=$( gcloud compute instances list | grep $servername | awk '{print $4}');
-#    echo $serverip ;
-    
-#    ./scp-to-nagios.sh $servername $serverip
-#done
-
-#gcloud compute ssh --zone us-west1-b cchang30@$nagios_server --command='sudo systemctl restart nagios'
