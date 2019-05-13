@@ -3,11 +3,7 @@
 # make sure that the running instance has the startup script that is being used (local file)
 #---------------------git clone repo-----------------------------#
 yum install git -y
-yum install wget -y
 git clone https://github.com/chuanisawesome/NTI-320.git
-wget https://raw.githubusercontent.com/chuanisawesome/NTI-320/master/lab1_nagios/generate_config.sh
-wget https://raw.githubusercontent.com/chuanisawesome/NTI-320/master/lab1_nagios/scp-to-nagios.sh
-
 
 #--------------spin up Nagios Server instance--------------------#
 nagios_server="testingnagios"
