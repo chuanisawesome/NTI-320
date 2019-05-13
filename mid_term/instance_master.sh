@@ -33,6 +33,19 @@ gcloud compute instances create $cacti_server \
     --image-project centos-cloud \
     --tags "http-server","https-server" \
     --metadata-from-file startup-script="/NTI-320/mid_term/cacti-startup-script.sh"
+    
+    
+#--------------spin up Nagios & Cacti Client instance--------------------#
+nagios_cacti_client="testingncclient"
+
+gcloud compute instances create $nagios_cacti_client \
+    --zone us-west1-b \
+    --machine-type f1-micro \
+    --scopes cloud-platform \
+    --image-family centos-7 \
+    --image-project centos-cloud \
+    --tags "http-server","https-server" \
+    --metadata-from-file startup-script="/NTI-320/mid_term/nagios-cacti-client-startup-script.sh"
 
 
 #---------------spin up Rsyslog Server instance------------------#
@@ -46,6 +59,7 @@ gcloud compute instances create $rsyslog_server \
     --image-project centos-cloud \
     --metadata-from-file startup-script="/NTI-320/mid_term/rsyslog-startup-script.sh"
 
+rsyslog_ip=$(gcloud compute instances list | grep $rsyslog_server | awk '{ print $4 }' | tail -1)
 
 ldapserver=/NTI-320/mid_term/ldap-startup-script.sh
 sed -i "s/\$rsys_ip/$rsyslog_ip/g" $ldapserver
@@ -86,6 +100,8 @@ gcloud compute instances create $nfs_server \
     --tags "http-server","https-server" \
     --metadata-from-file startup-script="/NTI-320/mid_term/nfs-startup-script.sh"
 
+nfs_ip=$(gcloud compute instances list | grep $nfs_server | awk '{ print $4 }' | tail -1)
+
 ##sed line that changes ip in the client file
 lnclient=/NTI-320/mid_term/ldap-nfs-client-startup-script.sh
 sed -i "s/\$nfs_ip/$nfs_ip/g" $lnclient
@@ -117,6 +133,7 @@ gcloud compute instances create $postgres_server \
     --tags "http-server","https-server" \
     --metadata-from-file startup-script="/NTI-320/mid_term/postgres-startup-script.sh"
 
+post_ip=$(gcloud compute instances list | grep $postgres_server | awk '{ print $4 }' | tail -1)
 
 django=/NTI-320/mid_term/django-startup-script.sh
 # to get postgres internal ip
