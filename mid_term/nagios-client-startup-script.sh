@@ -53,7 +53,7 @@ sed -i.bak "s;$string;$replacement_string;g" /etc/nagios/nrpe.cfg
 
 
 #####SERVER NAME#####
-nagios_server="nagios-a"
+nagios_server="testingnagios"
 #####INTERNAL IP#####
 nagios_ip=$(gcloud compute instances list | grep $nagios_server | awk '{ print $4 }' | tail -1)
 
