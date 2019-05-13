@@ -149,7 +149,7 @@ gcloud compute instances create $django_server \
     --tags "http-server","django-server" \
     --metadata-from-file startup-script="/NTI-320/mid_term/django-startup-script.sh"
  
- sleep 2
+sleep 5
 
 for servername in $(gcloud compute instances list | awk '{print $1}' | sed "1 d" | grep -v $nagios_server); do 
 
