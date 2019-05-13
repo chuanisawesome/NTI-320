@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# install wget
-yum install wget -y
-
 # install the EPEL repository, that contains extra packages that we need
 yum install epel-release -y
 # install the components we need for postgres
