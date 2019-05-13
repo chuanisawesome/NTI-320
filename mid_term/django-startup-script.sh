@@ -21,6 +21,7 @@ cd /opt/myproject
 virtualenv myprojectenv
 source myprojectenv/bin/activate
 pip install django psycopg2
+#PATH=$PATH:/usr/pgsql-9.3/bin/ pip install psycopg2
 django-admin.py startproject myproject .
 
 chown -R cchang30 . /opt/myproject
