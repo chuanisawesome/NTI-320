@@ -3,11 +3,7 @@
 # make sure that the running instance has the startup script that is being used (local file)
 #---------------------git clone repo-----------------------------#
 yum install git -y
-yum install wget -y
 git clone https://github.com/chuanisawesome/NTI-320.git
-wget https://raw.githubusercontent.com/chuanisawesome/NTI-320/master/lab1_nagios/generate_config.sh
-wget https://raw.githubusercontent.com/chuanisawesome/NTI-320/master/lab1_nagios/scp-to-nagios.sh
-
 
 #--------------spin up Nagios Server instance--------------------#
 nagios_server="testingnagios"
@@ -150,8 +146,10 @@ gcloud compute instances create $django_server \
     --scopes cloud-platform \
     --image-family centos-7 \
     --image-project centos-cloud \
-    --tags "http-server", "port-8000" \
+    --tags "http-server","django-server" \
     --metadata-from-file startup-script="/NTI-320/mid_term/django-startup-script.sh"
+ 
+sleep 2
 
 for servername in $(gcloud compute instances list | awk '{print $1}' | sed "1 d" | grep -v $nagios_server); do 
 

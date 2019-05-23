@@ -8,7 +8,6 @@ in_ip=$(getent hosts  $server_name$(echo .$(hostname -f |  cut -d "." -f2-)) | a
 #----------------install packages-------------
 
 yum install -y epel-release
-yum update -y
 yum install python-pip -y
 pip install virtualenv
 pip install --upgrade pip
@@ -22,6 +21,7 @@ cd /opt/myproject
 virtualenv myprojectenv
 source myprojectenv/bin/activate
 pip install django psycopg2
+#PATH=$PATH:/usr/pgsql-9.3/bin/ pip install psycopg2
 django-admin.py startproject myproject .
 
 chown -R cchang30 . /opt/myproject
