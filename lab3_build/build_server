@@ -6,8 +6,5 @@ yum -y install rpm-build make gcc git
 # to wget things from the web 
 yum -y install wget
 
-# this command to configure our top directory we're building in (in this case */root/rpmbuild*)
-echo '%\_topdir %(echo $HOME)/rpmbuild' > ~/.rpmmacros
-
 # Create the directory structure we'll use for our build process:
 mkdir -p -v /root/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
