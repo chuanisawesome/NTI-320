@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # be sure to change the server_name
-# server_name=test-post-a
+# server_name=postgres
 # postgres internal ip 
-in_ip=$(getent hosts  $server_name$(echo .$(hostname -f |  cut -d "." -f2-)) | awk '{ print $1 }' )
+# in_ip=$(getent hosts  $server_name$(echo .$(hostname -f |  cut -d "." -f2-)) | awk '{ print $1 }' )
 
 #----------------install packages-------------
 
@@ -31,6 +31,11 @@ ex_ip=$( curl https://api.ipify.org )
 sed -i "s/ALLOWED_HOSTS = \[\]/ALLOWED_HOSTS = \['"$ex_ip"'\]/g" /opt/myproject/myproject/settings.py
 
 sed -i.bak '76,82d' /opt/myproject/myproject/settings.py
+
+# be sure to change the server_name
+ server_name=postgres
+# postgres internal ip 
+in_ip=$(getent hosts  $server_name$(echo .$(hostname -f |  cut -d "." -f2-)) | awk '{ print $1 }' )
 
 # change the configuration to postgresql db
 echo "DATABASES = {
