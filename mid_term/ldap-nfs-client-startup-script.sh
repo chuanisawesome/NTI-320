@@ -47,9 +47,8 @@ sed -i 's/base dc=example,dc=net/base dc=nti310,dc=local/g' /etc/ldap.conf
 sed -i 's,uri ldapi:///,uri ldap://ldap-d/,g' /etc/ldap.conf
 sed -i 's/rootbinddn cn=manager,dc=example,dc=net/rootbinddn cn=ldapadm,dc=nti310,dc=local/g' /etc/ldap.conf
 
-# Set login to include ldap
-sed -i 's/compat/compat ldap/g' /etc/nsswitch.conf
-/etc/init.d/nscd restart
+systemctl restart nscd
+systemctl enable nscd
 
 # test to see if ldap users outputs
 getent passwd
