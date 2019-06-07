@@ -2,11 +2,14 @@
 
 # updates system APT database
 apt-get update
+apt-get install -y debconf-utils
 
 export DEBIAN_FRONTEND=noninteractive
 
 # Installs debconf
 apt-get --yes install libnss-ldap libpam-ldap ldap-utils nscd
+
+unset DEBIAN_FRONTEND
 
 # echo ldap tempfile
 echo "ldap-auth-config ldap-auth-config/bindpw password
