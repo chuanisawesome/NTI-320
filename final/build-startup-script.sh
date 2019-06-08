@@ -14,19 +14,21 @@ cd ~/
 echo '%_topdir %(echo $HOME)/rpmbuild' > ~/.rpmmacros
 cd ~/rpmbuild/SOURCES
 
-# repo_server="testingrepo"
-# #####INTERNAL IP#####
-# repo_ip=$(gcloud compute instances list | grep $repo_server | awk '{ print $4 }' | tail -1)
+###setting up machine to run as rsyslog client to server rsyslog
+yum update -y && yum install -y rsyslog
 
-# echo "[nti-320]
-# name=Extra Packages for Centos from NTI-320 7 - $basearch
-# #baseurl=http://download.fedoraproject.org/pub/epel/7/$basearch <- example epel repo
-# # Note, this is putting repodata at packages instead of 7 and our path is a hack around that.
-# baseurl=http://$repo_ip/centos/7/extras/x86_64/Packages/
-# enabled=1
-# gpgcheck=0
-# " >> /etc/yum.repos.d/NTI-320.repo 
+systemctl enable rsyslog
+systemctl start rsyslog
 
+#on the rsyslog client
+#add to end of file
+#internal ip
+echo "*.* @@$rsys_ip:514" >> /etc/rsyslog.conf
+
+systemctl restart rsyslog
+
+##check to see if rsyslog is active
+systemctl status rsyslog
 
 #git clone
 #cp NTI-320/rpm-info/hello_world_from_source/helloworld-0.1.tar.gz .
