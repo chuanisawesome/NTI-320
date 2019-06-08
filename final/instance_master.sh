@@ -82,19 +82,10 @@ gcloud compute instances create $rsyslog_server \
     --image-project centos-cloud \
     --metadata-from-file startup-script="/NTI-320/final/rsyslog-startup-script.sh"
 
-rsyslog_ip=$(gcloud compute instances list | grep $rsyslog_server | awk '{ print $4 }' | tail -1)
+#rsyslog_ip=$(gcloud compute instances list | grep $rsyslog_server | awk '{ print $4 }' | tail -1)
 
-ldapserver=/NTI-320/final/ldap-startup-script.sh
-sed -i "s/\$rsys_ip/$rsyslog_ip/g" $ldapserver
-
-nfsserver=/NTI-320/final/nfs-startup-script.sh
-sed -i "s/\$rsys_ip/$rsyslog_ip/g" $nfsserver
-
-postgresserver=/NTI-320/final/postgres-startup-script.sh
-sed -i "s/\$rsys_ip/$rsyslog_ip/g" $postgresserver
-
-djangoserver=/NTI-320/final/django-startup-script.sh
-sed -i "s/\$rsys_ip/$rsyslog_ip/g" $djangoserver
+#nfsserver=/NTI-320/final/nfs-startup-script.sh
+#sed -i "s/\$rsys_ip/$rsyslog_ip/g" $nfsserver
 
 sleep 2
 
@@ -177,7 +168,7 @@ gcloud compute instances create $django_server \
     --metadata-from-file startup-script="/NTI-320/final/django-startup-script.sh"
  
 
-#---------------------start of for-loops-------------------------#
+#------------------for-loop client installs---------------------#
 sleep 2
 
 for servername in $(gcloud compute instances list | awk '{print $1}' | sed "1 d" | grep -v $nagios_server); do 
@@ -190,6 +181,14 @@ sleep 2
 
 for servername in $(gcloud compute instances list | awk '{print $1}' | sed "1 d" | grep -v $rsyslog_server); do 
 
-gcloud compute ssh cchang30@$servername --zone us-west1-b --strict-host-key-checking='no' --command='sudo yum -y install wget && sudo wget https://raw.githubusercontent.com/chuanisawesome/NTI-320/master/lab1_nagios/nagios_client_install.sh && sudo bash nagios_client_install.sh';
+gcloud compute ssh cchang30@$servername --zone us-west1-b --strict-host-key-checking='no' --command='sudo yum -y install wget && sudo wget https://raw.githubusercontent.com/chuanisawesome/NTI-320/master/resources/rsyslog-client.sh && sudo bash rsyslog-client.sh';
+
+done
+
+sleep 2
+
+for servername in $(gcloud compute instances list | awk '{print $1}' | sed "1 d" | grep -v $repo_server); do 
+
+gcloud compute ssh cchang30@$servername --zone us-west1-b --strict-host-key-checking='no' --command='sudo yum -y install wget && sudo wget https://raw.githubusercontent.com/chuanisawesome/NTI-320/master/lab4_repo/add-yum.sh && sudo bash add-yum.sh';
 
 done
