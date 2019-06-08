@@ -1,9 +1,9 @@
 #!/bin/bash
 
-###setting up machine to run as rsyslog client to server rsyslog
 rsyslog_server="testingrsyslog"
 rsyslog_ip=$(gcloud compute instances list | grep $rsyslog_server | awk '{ print $4 }' | tail -1)
 
+###setting up machine to run as rsyslog client to server rsyslog
 yum update -y && yum install -y rsyslog
 
 systemctl enable rsyslog
