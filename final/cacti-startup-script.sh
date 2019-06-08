@@ -56,19 +56,3 @@ sed -i 's/#//g' /etc/cron.d/cacti
 # don't load an selinux policy on next boot
 sed -i 's,SELINUX=enforcing,SELINUX=disabled,g' /etc/sysconfig/selinux
 setenforce 0
-
-###setting up machine to run as rsyslog client to server rsyslog
-yum update -y && yum install -y rsyslog
-
-systemctl enable rsyslog
-systemctl start rsyslog
-
-#on the rsyslog client
-#add to end of file
-#internal ip
-echo "*.* @@$rsys_ip:514" >> /etc/rsyslog.conf
-
-systemctl restart rsyslog
-
-##check to see if rsyslog is active
-systemctl status rsyslog
