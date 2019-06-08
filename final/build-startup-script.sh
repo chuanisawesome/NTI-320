@@ -14,22 +14,6 @@ cd ~/
 echo '%_topdir %(echo $HOME)/rpmbuild' > ~/.rpmmacros
 cd ~/rpmbuild/SOURCES
 
-###setting up machine to run as rsyslog client to server rsyslog
-yum update -y && yum install -y rsyslog
-
-systemctl enable rsyslog
-systemctl start rsyslog
-
-#on the rsyslog client
-#add to end of file
-#internal ip
-echo "*.* @@$rsys_ip:514" >> /etc/rsyslog.conf
-
-systemctl restart rsyslog
-
-##check to see if rsyslog is active
-systemctl status rsyslog
-
 #git clone
 #cp NTI-320/rpm-info/hello_world_from_source/helloworld-0.1.tar.gz .
 #.sh
