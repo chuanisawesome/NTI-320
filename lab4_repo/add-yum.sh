@@ -4,7 +4,7 @@ repo_server="testingrepo"
 #####INTERNAL IP#####
 repo_ip=$(gcloud compute instances list | grep $repo_server | awk '{ print $4 }' | tail -1)
 
-echo "[nti-320]
+echo "[nti-320-plugins]
 name=Extra Packages for Centos from NTI-320 7 - $basearch
 #baseurl=http://download.fedoraproject.org/pub/epel/7/$basearch <- example epel repo
 # Note, this is putting repodata at packages instead of 7 and our path is a hack around that.
