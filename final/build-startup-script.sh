@@ -14,8 +14,8 @@ cd ~/
 echo '%_topdir %(echo $HOME)/rpmbuild' > ~/.rpmmacros
 cd ~/rpmbuild/SOURCES
 
-#git clone
-#cp NTI-320/rpm-info/hello_world_from_source/helloworld-0.1.tar.gz .
+#git clone https://github.com/nic-instruction/custom-nrpe-2019.git
+#cp custom-nrpe-2019/nti-320-plugins-0.1.tar.gz .
 #.sh
 #.spec
 #mv .spec ../SPECS
