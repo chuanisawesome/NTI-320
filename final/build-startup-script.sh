@@ -25,7 +25,7 @@ mv nti-320-plugins.spec ../SPECS
 cd ..
 
 # to_build
-rpmbuild -v -bb --clean SPECS/hello.spec
+rpmbuild -v -bb --clean SPECS/nti-320-plugins.spec
 
 
 yum -y install RPMS/x86_64/nti-320-plugins-0.1-1.el7.x86_64.rpm
