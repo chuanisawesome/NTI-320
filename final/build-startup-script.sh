@@ -18,7 +18,7 @@ git clone https://github.com/nic-instruction/custom-nrpe-2019.git
 cd custom-nrpe-2019
 cp custom-nrpe-2019/nti-320-plugins-0.1.tar.gz .
 cp custom-nrpe-2019/plugins/connectiontest.sh .
-cp custom-nrpe-2019/nti-320-plugins.spec
+cp custom-nrpe-2019/nti-320-plugins.spec .
 #.sh
 #.spec
 mv nti-320-plugins.spec ../SPECS
